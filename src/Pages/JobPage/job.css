@@ -1,0 +1,54 @@
+.jobs {
+  min-height: 110vh;
+}
+
+.search {
+  width: 50%;
+  margin: 3rem auto 2rem auto;
+}
+
+.location {
+  width: 50%;
+  margin: 0rem auto 2rem auto;
+}
+
+.category {
+  width: 50%;
+  margin: 0rem auto 2rem auto;
+}
+
+.job-type {
+  width: 50%;
+  margin: 0rem auto 2rem auto;
+}
+
+.card-left img {
+  width: 70px;
+  height: 70px;
+  border-radius: 5px;
+  border: 1px solid black;
+  object-fit: cover;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background-color: wheat;
+}
+::-webkit-scrollbar-thumb {
+  background-color: gray;
+}
+.job-left {
+  position: fixed;
+  top: 3rem;
+  width: 52%;
+}
+
+.job-right {
+  width: 95%;
+  margin: 2rem auto 0rem auto;
+}
+.title {
+  font-size: 21px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}

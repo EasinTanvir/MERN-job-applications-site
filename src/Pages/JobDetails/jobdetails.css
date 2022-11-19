@@ -1,0 +1,10 @@
+.details {
+  min-height: 100vh;
+}
+.lead {
+  font-size: 16px;
+}
+.text-dark {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-style: italic;
+}

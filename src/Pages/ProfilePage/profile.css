@@ -1,0 +1,56 @@
+.profile {
+  min-height: 94vh;
+  display: flex;
+}
+.l-dash {
+  flex: 2;
+  padding: 1rem;
+}
+.d-icons {
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  flex-direction: column;
+}
+.d-icons span {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: bold;
+  font-size: 22px;
+}
+.d-items1:nth-child(1) {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.dashboard .d-items1 {
+  padding: 5px;
+  margin-bottom: 1rem;
+}
+.dashboard .d-items1:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  padding: 5px;
+  transition: 0.5s;
+}
+.dashboard .d-items2 {
+  padding: 5px;
+  margin-bottom: 1rem;
+}
+.dashboard .d-items2:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  padding: 5px;
+  transition: 0.5s;
+}
+.r-dash {
+  flex: 10;
+}
+.r-dash h2 {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 28px;
+  text-align: center;
+  margin-top: 1rem;
+}
+.r-dash hr {
+  width: 60%;
+  margin: 1rem auto;
+}

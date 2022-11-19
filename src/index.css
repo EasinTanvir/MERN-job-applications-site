@@ -1,0 +1,62 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.headers {
+  z-index: 999;
+}
+.users {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 25px;
+
+  margin-left: 40px;
+}
+.my-forms {
+  margin-left: -2rem;
+}
+a {
+  text-decoration: none;
+}
+
+.nav-icon {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.nav-icon h3 {
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 5px;
+}
+
+.footers {
+  background-color: rgb(21, 21, 223);
+  color: white;
+}
+.footers h2 {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 25px;
+  padding: 1rem;
+}
+.auths {
+  min-height: 90vh;
+}
+
+.spin {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titles {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  text-align: center;
+  margin: 1rem 0rem;
+}
+.positons {
+  padding: 0px 2rem;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-style: italic;
+  border-bottom: 1px solid black;
+}
