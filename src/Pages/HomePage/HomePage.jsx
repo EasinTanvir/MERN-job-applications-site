@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -7,6 +7,7 @@ import Brands from "../../utils/Brands/Brands";
 import Testimonial from "../../utils/Testimonial/Testimonial";
 import Search from "./Search";
 import JobOverView from "./JobOverView";
+import axios from "axios";
 
 const fadeInFromTop = {
   hidden: { opacity: 0 },
@@ -19,6 +20,14 @@ const fadeInFromBotom2 = {
 };
 
 const HomePage = () => {
+  const fetchData = async () => {
+    await axios.get(process.env.REACT_APP_PATH + `/api/job/test`);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="min-h-[calc(100vh-74px)] flex justify-center">
       <div className="lg:w-[80%] w-full py-16  space-y-4  ">

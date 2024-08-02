@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Fetch_Jobs_Id } from "../../store/actions";
 import { useParams } from "react-router-dom";
 import Spinners from "../../Components/Spinners";
+import Loader from "../JobPage/Loader";
 
 const JobDetails = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,9 @@ const JobDetails = () => {
     <Container>
       <div className="details max-w-full overflow-hidden py-4 min-h-[calc(100vh-64px)] ">
         {isLoading ? (
-          <Spinners />
+          <div className="min-h-[600px] flex items-center justify-center">
+            <Loader />
+          </div>
         ) : (
           <>
             {" "}

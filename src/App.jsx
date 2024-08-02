@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   unstable_HistoryRouter as Router,
@@ -23,6 +23,7 @@ import MyPostJob from "./Pages/ProfilePage/MyPostJob";
 import Application from "./Pages/ProfilePage/Application";
 import Signup from "./Components/auth/Signup";
 import Login from "./Components/auth/Login";
+import axios from "axios";
 
 const JobDetails = React.lazy(() => import("./Pages/JobDetails/JobDetails"));
 const ApplyJob = React.lazy(() => import("./Pages/ApplyJob/ApplyJob"));
@@ -31,7 +32,6 @@ const App = () => {
   const allusers = useSelector((state) => state.auth);
   const { userInfo } = allusers;
 
-  console.log(userInfo);
   let user;
   if (userInfo?.token) {
     user = (

@@ -5,9 +5,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
 import CategoryIcon from "@mui/icons-material/Category";
 import WorkIcon from "@mui/icons-material/Work";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import EditLocationIcon from "@mui/icons-material/EditLocation";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import {
   Link,
   useNavigate,
@@ -23,6 +28,7 @@ import JobPagination from "./Pagination";
 import { NoJobFound } from "./NotFound";
 import Loader from "./Loader";
 import Paginations from "./Pagination";
+import { BiSolidDollarCircle } from "react-icons/bi";
 const JobPage = () => {
   const alljob = useSelector((state) => state.alljobs);
   const page = useSelector((state) => state.alljobs.page);
@@ -39,7 +45,8 @@ const JobPage = () => {
 
   const [input, setinput] = useState(searchParams.get("search"));
   const [location, setLocation] = useState(searchParams.get("location"));
-  const [category, setCategory] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const [jobType, setJobType] = useState("");
   const [urlParams, setUrlParams] = useSearchParams();
 
@@ -54,35 +61,52 @@ const JobPage = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(urlParams);
+    const myPage = searchParams.get("page");
+
+    function deletPage() {
+      if (!myPage) {
+        params.delete("page");
+      }
+    }
 
     if (input) {
       params.set("search", input);
-      params.delete("page");
+      deletPage();
     } else {
       params.delete("search");
     }
 
     if (location) {
       params.set("location", location);
-      params.delete("page");
+      deletPage();
     } else {
       params.delete("location");
     }
     if (jobType) {
       params.set("jobType", jobType);
-      params.delete("page");
+      deletPage();
     } else {
       params.delete("jobType");
     }
-    if (category) {
-      params.delete("page");
-      params.set("category", category);
-    } else {
-      params.delete("category");
-    }
+    const handleSearch = () => {
+      if (minPrice && maxPrice) {
+        params.set("minPrice", minPrice);
+        params.set("maxPrice", maxPrice);
+        deletPage();
+      } else {
+        params.delete("minPrice");
+        params.delete("maxPrice");
+      }
+      setUrlParams(params);
+    };
+
+    const timeInterval = setTimeout(() => {
+      handleSearch();
+    }, 800);
 
     setUrlParams(params);
-  }, [input, location, setUrlParams, category, jobType]);
+    return () => clearTimeout(timeInterval);
+  }, [input, location, setUrlParams, minPrice, maxPrice, jobType]);
 
   // Navigate and dispatch Fetch_Jobs with updated params
   useEffect(() => {
@@ -90,7 +114,6 @@ const JobPage = () => {
     for (const [key, value] of urlParams.entries()) {
       paramsObject[key] = value;
     }
-    console.log(paramsObject);
 
     const queryString = objectToQueryString(paramsObject);
     navigate(`/job/search?${urlParams.toString()}`);
@@ -144,29 +167,6 @@ const JobPage = () => {
               </Form.Control>
             </div>
 
-            <div className="category">
-              <Form.Label className="flex items-center gap-1">
-                <CategoryIcon />{" "}
-                <span className="text-slate-700 font-semibold text-lg">
-                  Category
-                </span>
-              </Form.Label>
-              <Form.Control
-                onChange={(e) => setCategory(e.target.value)}
-                value={category}
-                as="select"
-                name=""
-                id=""
-              >
-                <option value="">-Category-</option>
-                <option value="full stack">Full Stack Developer</option>
-                <option value="frontEnd">FrontEnd Developer</option>
-                <option value="backEnd">BackEnd Developer</option>
-                <option value="reactJs">React Developer</option>
-                <option value="wordpress">WordPress Developer</option>
-              </Form.Control>
-            </div>
-
             <div className="job-type">
               <Form.Label className="flex items-center gap-1">
                 <WorkIcon />{" "}
@@ -185,6 +185,36 @@ const JobPage = () => {
                 <option value="full time">FullTime</option>
                 <option value="per time">PerTime</option>
               </Form.Control>
+            </div>
+
+            <div className="category">
+              <Form.Label className="flex items-center gap-1">
+                <BiSolidDollarCircle className="text-2xl" />{" "}
+                <span className="text-slate-700 font-semibold text-lg">
+                  Filter With Price
+                </span>
+              </Form.Label>
+
+              <>
+                <div className="flex flex-col gap-3 mt-3">
+                  <TextField
+                    label="Min Price"
+                    variant="outlined"
+                    type="text"
+                    onChange={(e) => setMinPrice(e.target.value)}
+                    fullWidth
+                    size="small"
+                  />
+                  <TextField
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                    label="Max Price"
+                    size="small"
+                    variant="outlined"
+                    type="text"
+                    fullWidth
+                  />
+                </div>
+              </>
             </div>
           </div>
         </Col>
