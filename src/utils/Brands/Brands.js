@@ -9,14 +9,14 @@ import BrandItem from "./BrandItem";
 
 const Brands = () => {
   return (
-    <div className="grid lg:grid-cols-3  sm:grid-cols-2 grid-cols-1 gap-x-4 gap-y-10 pt-10 md:px-0 px-5">
+    <div className="grid xl:grid-cols-3  sm:grid-cols-2 grid-cols-1 gap-x-4 gap-y-10 pt-10 md:px-0 px-5">
       <BrandItem
         title="Global Reach"
         text="Gain access to a vast network of employers from various industries and regions, expanding your career opportunities across the globe."
         icon={AiOutlineGlobal}
       />
       <BrandItem
-        title="Personalized Job Matches"
+        title="Personalized Job"
         text="Receive job suggestions that match your skills, experience, and career aspirations, ensuring you find the most relevant opportunities."
         icon={IoIosPartlySunny}
       />
@@ -26,7 +26,7 @@ const Brands = () => {
         icon={MdOutlineSecurity}
       />
       <BrandItem
-        title="Seamless Application Process"
+        title="Seamless Application"
         text="Experience a user-friendly application process that allows you to apply for jobs quickly and efficiently, saving you time and effort."
         icon={SiPythonanywhere}
       />
@@ -36,7 +36,7 @@ const Brands = () => {
         icon={TbPackageExport}
       />
       <BrandItem
-        title="Trusted by Top Employers"
+        title="Trusted Employers"
         text="Connect with leading employers who trust our platform to find talented professionals like you, opening doors to prestigious career opportunities."
         icon={FcAssistant}
       />
