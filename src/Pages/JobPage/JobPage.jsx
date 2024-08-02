@@ -61,16 +61,15 @@ const JobPage = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(urlParams);
-    const myPage = searchParams.get("page");
+    const myPage = searchParams.get("page") ? searchParams.get("page") : 1;
 
     function deletPage() {
-      if (!myPage) {
-        params.delete("page");
-      }
+      params.delete("page");
     }
 
     if (input) {
       params.set("search", input);
+
       deletPage();
     } else {
       params.delete("search");
@@ -84,6 +83,7 @@ const JobPage = () => {
     }
     if (jobType) {
       params.set("jobType", jobType);
+
       deletPage();
     } else {
       params.delete("jobType");
@@ -106,7 +106,7 @@ const JobPage = () => {
 
     setUrlParams(params);
     return () => clearTimeout(timeInterval);
-  }, [input, location, setUrlParams, minPrice, maxPrice, jobType]);
+  }, [input, location, minPrice, maxPrice, jobType]);
 
   // Navigate and dispatch Fetch_Jobs with updated params
   useEffect(() => {
