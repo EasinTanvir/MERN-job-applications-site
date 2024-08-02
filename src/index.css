@@ -8,6 +8,19 @@
   margin: 0px;
   padding: 0px;
 }
+.custom-navbar-collapse {
+  background: linear-gradient(
+    to right,
+    #4a148c,
+    #f44336
+  ); /* Black background with some transparency */
+
+  position: absolute;
+  left: 0;
+  top: 64px;
+  width: 100% !important;
+}
+
 .headers {
   z-index: 999;
 }
@@ -65,4 +78,10 @@ a {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-style: italic;
   border-bottom: 1px solid black;
+}
+
+@media (min-width: 992px) {
+  .custom-navbar-collapse {
+    background-color: transparent;
+  }
 }

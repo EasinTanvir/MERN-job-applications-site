@@ -8,7 +8,8 @@ import Testimonial from "../../utils/Testimonial/Testimonial";
 import Search from "./Search";
 import JobOverView from "./JobOverView";
 import axios from "axios";
-
+import { MdRemoveRedEye } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
 const fadeInFromTop = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.4, delay: 0.3 } },
@@ -58,13 +59,15 @@ const HomePage = () => {
         <div className="flex items-center justify-center gap-3 pb-4 ">
           <>
             <Link to="/profile">
-              <Buttons className="sm:w-52 w-44 bg-rose-700 font-semibold hover:scale-105 transition-all duration-200 cursor-pointer text-white px-6 py-[12px] rounded-sm">
-                Profile
+              <Buttons className="sm:w-44 md:w-52 w-40 flex items-center gap-2 justify-center bg-rose-700 font-semibold hover:scale-105 transition-all duration-200 cursor-pointer text-white px-6 py-[12px] rounded-sm">
+                <span>Profile</span>
+                <CgProfile className="text-xl " />
               </Buttons>
             </Link>
             <Link to="/job/search">
-              <Buttons className="sm:w-52 w-44 bg-btnColor font-semibold hover:scale-105 transition-all duration-200 cursor-pointer text-white px-6 py-[12px] rounded-sm">
-                Search Job
+              <Buttons className="sm:w-44 md:w-52 w-40 flex items-center gap-2 justify-center bg-btnColor font-semibold hover:scale-105 transition-all duration-200 cursor-pointer text-white px-6 py-[12px] rounded-sm">
+                <span> View Jobs</span>
+                <MdRemoveRedEye className="text-xl mt-1" />
               </Buttons>
             </Link>
           </>

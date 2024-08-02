@@ -17,7 +17,7 @@ const Footer = () => {
         <div className="xl:px-10 sm:px-6 px-0  min-h-28  flex lg:flex-row flex-col  lg:gap-0 gap-5  justify-between items-center ">
           <ul className="flex flex-1  md:gap-6 gap-4   text-white flex-row items-center ">
             <li>
-              <Link to="/about">
+              <Link to="/">
                 <span className="hover:underline sm:text-sm text-xs">
                   About Us
                 </span>
@@ -31,7 +31,7 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to="/contact">
+              <Link to="/">
                 <span className="hover:underline sm:text-sm text-xs">
                   Contact
                 </span>

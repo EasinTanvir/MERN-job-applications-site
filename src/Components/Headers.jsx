@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -23,7 +23,7 @@ import { MdWorkspacePremium } from "react-icons/md";
 const Headers = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [expanded, setExpanded] = useState(false);
   const users = useSelector((state) => state.auth);
   const { userInfo } = users;
 
@@ -36,17 +36,16 @@ const Headers = () => {
   };
   return (
     <Navbar
+      expanded={expanded}
+      onToggle={() => setExpanded(!expanded)}
       className="sticky-top headers bg-custom-gradient h-[64px]"
       variant="dark"
       expand="lg"
     >
-      <Container>
+      <Container className="px-2 sm:px-4">
         <Navbar.Brand>
           <div className="flex items-center gap-2">
-            <Link
-              to="/"
-              className="text-[30px]  text-white  font-dancingScript"
-            >
+            <Link to="/" className="text-[30px] text-white font-dancingScript">
               SuperJob
             </Link>
             <span>
@@ -55,19 +54,22 @@ const Headers = () => {
           </div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto space-x-2  font-serif">
+        <Navbar.Collapse
+          id="basic-navbar-nav"
+          className={`${expanded ? "custom-navbar-collapse" : ""}  p-4`}
+        >
+          <Nav className="ms-auto   font-serif">
             <LinkContainer to="/">
-              <Nav.Link>Home</Nav.Link>
+              <Nav.Link className="me-2">Home</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/job/search">
+            <LinkContainer className="ms-2" to="/job/search">
               <Nav.Link>FindJob</Nav.Link>
             </LinkContainer>
-            <LinkContainer className="me-2" to="/post">
+            <LinkContainer className="me-2 ms-2" to="/post">
               <Nav.Link>PostJob</Nav.Link>
             </LinkContainer>
             {!userInfo?.token && (
-              <LinkContainer className="me-2" to="/register">
+              <LinkContainer className="me-2 w-fit px-4" to="/register">
                 <Nav.Link className="bg-btnColor text-white rounded-md py-2">
                   SignUp
                 </Nav.Link>
@@ -81,7 +83,7 @@ const Headers = () => {
                       boxSize="2rem"
                       borderRadius="full"
                       src="/assests/user1.png"
-                      alt="Fluffybuns the destroyer"
+                      alt="User avatar"
                       mr="12px"
                     />
                   </MenuButton>
