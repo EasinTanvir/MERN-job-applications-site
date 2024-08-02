@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "custom-gradient": "linear-gradient(to right, #3b82f6, #9333ea)",
+        "custom-gradient": "linear-gradient(to right, #4a148c, #f44336)",
       },
       colors: {
         btnColor: "#0172F4",

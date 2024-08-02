@@ -24,6 +24,7 @@ import Application from "./Pages/ProfilePage/Application";
 import Signup from "./Components/auth/Signup";
 import Login from "./Components/auth/Login";
 import axios from "axios";
+import NotFound from "./Pages/NotFound";
 
 const JobDetails = React.lazy(() => import("./Pages/JobDetails/JobDetails"));
 const ApplyJob = React.lazy(() => import("./Pages/ApplyJob/ApplyJob"));
@@ -47,6 +48,7 @@ const App = () => {
         <Route path="/myprofile" element={<MainProfile />} />
         <Route path="/job/:id" element={<JobDetails />} />
         <Route path="/job/apply/:id" element={<ApplyJob />} />
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     );

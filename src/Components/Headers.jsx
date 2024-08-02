@@ -63,7 +63,7 @@ const Headers = () => {
             </LinkContainer>
             {!userInfo?.token && (
               <LinkContainer className="me-2" to="/register">
-                <Nav.Link className="bg-rose-700 text-white rounded-md py-2">
+                <Nav.Link className="bg-btnColor text-white rounded-md py-2">
                   SignUp
                 </Nav.Link>
               </LinkContainer>
