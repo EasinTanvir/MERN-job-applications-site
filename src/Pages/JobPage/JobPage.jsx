@@ -218,7 +218,7 @@ const JobPage = () => {
             </div>
           </div>
         </Col>
-        <Col lg={6} className="py-4">
+        <Col lg={6} className="pt-4 pb-20">
           <Container fluid>
             {isLoading ? (
               <div className="min-h-[600px]  flex items-center justify-center ">
@@ -234,51 +234,6 @@ const JobPage = () => {
                   <>
                     {jobs.map((item) => (
                       <JobCard key={item.id} {...item} />
-                      // <Card className="mb-3  p-2" key={item.id}>
-                      //   <Card.Body>
-                      //     <div className="d-flex gap-3">
-                      //       <div className="card-left">
-                      //         <img src={item.image} alt="" />
-                      //       </div>
-                      //       <div className="card-right">
-                      //         <h3 className="title ">{item.title}</h3>
-                      //         <div className="d-flex gap-4 mt-2 ">
-                      //           <span className="small flex items-center gap-1">
-                      //             <CardGiftcardIcon /> {item.company}
-                      //           </span>
-                      //           <span className="small flex items-center gap-0">
-                      //             <EditLocationIcon /> {item.location}
-                      //           </span>
-                      //           <span className="small flex items-center gap-1">
-                      //             <AppRegistrationIcon />
-                      //             Vacancy: {item.vacancy}
-                      //           </span>
-                      //           <span className="small d-flex items-center">
-                      //             <AccessAlarmIcon />
-                      //             <span className="ms-1"> {item.jobType}</span>
-                      //           </span>
-                      //         </div>
-                      //       </div>
-                      //     </div>
-                      //     <div className="buttons mt-3 d-flex gap-2">
-                      //       <Link to={`/job/${item.id}`}>
-                      //         {" "}
-                      //         <Button size="sm">Job Details</Button>
-                      //       </Link>
-                      //       <Link to={`/job/apply/${item.id}`}>
-                      //         {item.creator !== userInfo?.id && (
-                      //           <Button
-                      //             onClick={onJobHandler}
-                      //             variant="danger"
-                      //             size="sm"
-                      //           >
-                      //             Apply Now
-                      //           </Button>
-                      //         )}
-                      //       </Link>
-                      //     </div>
-                      //   </Card.Body>
-                      // </Card>
                     ))}
                   </>
                 )}
@@ -287,7 +242,7 @@ const JobPage = () => {
           </Container>
         </Col>
       </Row>
-      <div className="flex justify-center pt-4 pb-8 absolute bottom-4 w-full">
+      <div className="flex justify-center pt-4 pb-0 absolute bottom-8 w-full">
         <Paginations numberOfPage={page} />
       </div>
     </div>

@@ -85,13 +85,6 @@ const PostJob = () => {
       desc,
     };
     dispatch(Create_NewPosition(recData));
-    toast({
-      title: "Success",
-      description: "New Job Created",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
   };
 
   return (

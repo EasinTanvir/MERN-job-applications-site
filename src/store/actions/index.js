@@ -111,7 +111,7 @@ export const Create_NewPosition = (recData) => async (dispatch, getState) => {
     });
 
     dispatch({ type: "SUCCESS" });
-    history.push("/job");
+    history.push("/job/search");
   } catch (err) {
     dispatch({ type: "IS_ERROR", payload: err.response.data.message });
   }
