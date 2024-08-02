@@ -8,260 +8,247 @@ import WorkIcon from "@mui/icons-material/Work";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import EditLocationIcon from "@mui/icons-material/EditLocation";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Fetch_Jobs } from "../../store/actions";
 import Spinners from "../../Components/Spinners";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
+import JobCard from "./JobCard";
+import JobPagination from "./Pagination";
+import { NoJobFound } from "./NotFound";
+import Loader from "./Loader";
+import Paginations from "./Pagination";
 const JobPage = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const locationRef = useRef();
-  const categoryRef = useRef();
-  const jobTypeRef = useRef();
   const alljob = useSelector((state) => state.alljobs);
+  const page = useSelector((state) => state.alljobs.page);
   const loginuser = useSelector((state) => state.auth);
   const { userInfo } = loginuser;
   const error = useSelector((state) => state.errors);
   const { isLoading } = error;
   const { jobs } = alljob;
 
-  const searchKey = useParams().keyword;
-  const locationKey = useParams().loc;
-  const categoryKey = useParams().cat;
-  const jobTypeKey = useParams().type;
+  const [searchParams] = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  //onLocation Change
-  const onLocationChange = () => {
-    if (!searchKey && !categoryKey) {
-      if (locationRef.current.value) {
-        navigate(`/job/location/${locationRef.current.value}`);
-      } else {
-        navigate("/job");
-      }
-    } else {
-      if (locationRef.current.value) {
-        navigate(
-          `/job/search/${searchKey}/job/location/${locationRef.current.value}`
-        );
-      } else {
-        navigate(`/job/search/${searchKey}`);
-      }
-    }
+  const [input, setinput] = useState(searchParams.get("search"));
+  const [location, setLocation] = useState(searchParams.get("location"));
+  const [category, setCategory] = useState("");
+  const [jobType, setJobType] = useState("");
+  const [urlParams, setUrlParams] = useSearchParams();
 
-    //category
-  };
-  //onLSearch Change
-  const onInputChange = (e) => {
-    if (!locationKey) {
-      if (e.target.value.trim()) {
-        navigate(`/job/search/${e.target.value}`);
-      } else {
-        navigate("/job");
-      }
-    } else {
-      //start
-
-      if (e.target.value.trim()) {
-        navigate(
-          `/job/location/${locationRef.current.value}/job/search/${e.target.value}`
-        );
-      } else {
-        navigate(`/job/location/${locationRef.current.value}`);
-      }
-
-      //end
-    }
+  const objectToQueryString = (obj) => {
+    const queryString = Object.keys(obj)
+      .map(
+        (key) => `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`
+      )
+      .join("&");
+    return queryString;
   };
 
-  //onCategoryChange
-  const onCategoryChange = () => {
-    if (!locationKey) {
-      if (categoryRef.current.value) {
-        navigate(`/job/category/${categoryRef.current.value}`);
-      } else {
-        navigate("/job");
-      }
-    } else {
-      //start
-      if (categoryRef.current.value) {
-        navigate(
-          `/job/location/${locationRef.current.value}/job/category/${categoryRef.current.value}`
-        );
-      } else {
-        navigate(`/job/location/${locationRef.current.value}`);
-      }
-      //end
-    }
-  };
-  const onJobTypeHandler = () => {
-    if (!locationKey && !categoryKey && !searchKey) {
-      if (jobTypeRef.current.value) {
-        navigate(`/job/jobtype/${jobTypeRef.current.value}`);
-      } else {
-        navigate("/job");
-      }
-    } else if (locationRef.current.value) {
-      //start
-      if (locationRef.current.value) {
-        navigate(
-          `/job/location/${locationRef.current.value}/job/jobtype/${jobTypeRef.current.value}`
-        );
-      } else {
-        navigate(`/job/jobtype/${jobTypeRef.current.value}`);
-      }
-      //end
-    } else if (categoryRef.current.value) {
-      if (categoryRef.current.value) {
-        navigate(
-          `/job/category/${categoryRef.current.value}/job/jobtype/${jobTypeRef.current.value}`
-        );
-      } else {
-        navigate(`/job/jobtype/${jobTypeRef.current.value}`);
-      }
-    }
-  };
   useEffect(() => {
-    dispatch(Fetch_Jobs(searchKey, locationKey, categoryKey, jobTypeKey));
-  }, [dispatch, searchKey, locationKey, categoryKey, jobTypeKey]);
+    const params = new URLSearchParams(urlParams);
+
+    if (input) {
+      params.set("search", input);
+      params.delete("page");
+    } else {
+      params.delete("search");
+    }
+
+    if (location) {
+      params.set("location", location);
+      params.delete("page");
+    } else {
+      params.delete("location");
+    }
+    if (jobType) {
+      params.set("jobType", jobType);
+      params.delete("page");
+    } else {
+      params.delete("jobType");
+    }
+    if (category) {
+      params.delete("page");
+      params.set("category", category);
+    } else {
+      params.delete("category");
+    }
+
+    setUrlParams(params);
+  }, [input, location, setUrlParams, category, jobType]);
+
+  // Navigate and dispatch Fetch_Jobs with updated params
+  useEffect(() => {
+    const paramsObject = {};
+    for (const [key, value] of urlParams.entries()) {
+      paramsObject[key] = value;
+    }
+    console.log(paramsObject);
+
+    const queryString = objectToQueryString(paramsObject);
+    navigate(`/job/search?${urlParams.toString()}`);
+    dispatch(Fetch_Jobs(queryString));
+  }, [urlParams, navigate, dispatch]);
 
   const onJobHandler = () => {
     dispatch({ type: "REMOVE_JOB" });
   };
 
   return (
-    <div className="jobs">
+    <div className="jobs max-w-full overflow-hidden min-h-[calc(100vh-64px)] relative">
       <Row>
-        <Col md={6}>
+        <Col lg={6}>
           <div className="job-left ">
             <div className="search">
               <Form>
-                <Form.Label>
-                  <SearchIcon /> Search by keywords
+                <Form.Label className="flex items-center gap-1">
+                  <SearchIcon />
+                  <span className="text-slate-700 font-semibold text-lg">
+                    Search by keywords
+                  </span>
                 </Form.Label>
                 <Form.Control
-                  onChange={onInputChange}
+                  value={input}
+                  onChange={(e) => setinput(e.target.value)}
                   placeholder="Job Title, keywords"
                 />
               </Form>
             </div>
             <div className="location">
-              <Form.Label>
-                <AddLocationAltIcon /> Location
+              <Form.Label className="flex items-center gap-2">
+                <span>
+                  <AddLocationAltIcon />
+                </span>
+                <span className="text-slate-700 font-semibold text-lg">
+                  Location
+                </span>
               </Form.Label>
               <Form.Control
-                onChange={onLocationChange}
-                ref={locationRef}
+                onChange={(e) => setLocation(e.target.value)}
+                value={location}
                 as="select"
                 name=""
                 id=""
               >
                 <option value="">-Location-</option>
-                <option value="Remote">Remote</option>
-                <option value="International">International</option>
-                <option value="Hybrid">Hybrid</option>
+                <option value="remote">Remote</option>
+                <option value="international">International</option>
+                <option value="hybrid">Hybrid</option>
               </Form.Control>
             </div>
 
             <div className="category">
-              <Form.Label>
-                <CategoryIcon /> Category
+              <Form.Label className="flex items-center gap-1">
+                <CategoryIcon />{" "}
+                <span className="text-slate-700 font-semibold text-lg">
+                  Category
+                </span>
               </Form.Label>
               <Form.Control
-                onChange={onCategoryChange}
-                ref={categoryRef}
+                onChange={(e) => setCategory(e.target.value)}
+                value={category}
                 as="select"
                 name=""
                 id=""
               >
                 <option value="">-Category-</option>
-                <option value="Full Stack">Full Stack Developer</option>
-                <option value="FrontEnd">FrontEnd Developer</option>
-                <option value="BackEnd">BackEnd Developer</option>
-                <option value="ReactJs">React Developer</option>
-                <option value="Wordpress">WordPress Developer</option>
+                <option value="full stack">Full Stack Developer</option>
+                <option value="frontEnd">FrontEnd Developer</option>
+                <option value="backEnd">BackEnd Developer</option>
+                <option value="reactJs">React Developer</option>
+                <option value="wordpress">WordPress Developer</option>
               </Form.Control>
             </div>
 
             <div className="job-type">
-              <Form.Label>
-                <WorkIcon /> Job Type
+              <Form.Label className="flex items-center gap-1">
+                <WorkIcon />{" "}
+                <span className="text-slate-700 font-semibold text-lg">
+                  Job Type
+                </span>
               </Form.Label>
               <Form.Control
-                onChange={onJobTypeHandler}
-                ref={jobTypeRef}
+                onChange={(e) => setJobType(e.target.value)}
+                value={jobType}
                 as="select"
                 name=""
                 id=""
               >
                 <option value="">-Job-Type-</option>
-                <option value="Full Time">FullTime</option>
-                <option value="Per Time">PerTime</option>
+                <option value="full time">FullTime</option>
+                <option value="per time">PerTime</option>
               </Form.Control>
             </div>
           </div>
         </Col>
-        <Col md={6}>
+        <Col lg={6} className="py-4">
           <Container fluid>
             {isLoading ? (
-              <Spinners />
+              <div className="min-h-[600px]  flex items-center justify-center ">
+                <Loader />
+              </div>
             ) : (
               <div className="job-right">
                 {jobs.length === 0 ? (
                   <>
-                    <h2 className="btn btn-danger">
-                      Sorry no Jobs found Search again....
-                    </h2>
+                    <NoJobFound />
                   </>
                 ) : (
                   <>
-                    {" "}
                     {jobs.map((item) => (
-                      <Card className="mb-3" key={item.id}>
-                        <Card.Body>
-                          <div className="d-flex gap-3">
-                            <div className="card-left">
-                              <img src={item.image} alt="" />
-                            </div>
-                            <div className="card-right">
-                              <h3 className="title ">{item.title}</h3>
-                              <div className="d-flex gap-2">
-                                <span className="small">
-                                  <CardGiftcardIcon /> {item.company}
-                                </span>
-                                <span className="small">
-                                  <EditLocationIcon /> {item.location}
-                                </span>
-                                <span className="small">
-                                  <AppRegistrationIcon />
-                                  Vacancy: {item.vacancy}
-                                </span>
-                                <span className="small d-flex align-items-center">
-                                  <AccessAlarmIcon />
-                                  <span className="ms-1"> {item.jobType}</span>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="buttons mt-3 d-flex gap-2">
-                            <Link to={`/job/${item.id}`}>
-                              {" "}
-                              <Button size="sm">Job Details</Button>
-                            </Link>
-                            <Link to={`/job/apply/${item.id}`}>
-                              {item.creator !== userInfo?.id && (
-                                <Button
-                                  onClick={onJobHandler}
-                                  variant="danger"
-                                  size="sm"
-                                >
-                                  Apply Now
-                                </Button>
-                              )}
-                            </Link>
-                          </div>
-                        </Card.Body>
-                      </Card>
+                      <JobCard key={item.id} {...item} />
+                      // <Card className="mb-3  p-2" key={item.id}>
+                      //   <Card.Body>
+                      //     <div className="d-flex gap-3">
+                      //       <div className="card-left">
+                      //         <img src={item.image} alt="" />
+                      //       </div>
+                      //       <div className="card-right">
+                      //         <h3 className="title ">{item.title}</h3>
+                      //         <div className="d-flex gap-4 mt-2 ">
+                      //           <span className="small flex items-center gap-1">
+                      //             <CardGiftcardIcon /> {item.company}
+                      //           </span>
+                      //           <span className="small flex items-center gap-0">
+                      //             <EditLocationIcon /> {item.location}
+                      //           </span>
+                      //           <span className="small flex items-center gap-1">
+                      //             <AppRegistrationIcon />
+                      //             Vacancy: {item.vacancy}
+                      //           </span>
+                      //           <span className="small d-flex items-center">
+                      //             <AccessAlarmIcon />
+                      //             <span className="ms-1"> {item.jobType}</span>
+                      //           </span>
+                      //         </div>
+                      //       </div>
+                      //     </div>
+                      //     <div className="buttons mt-3 d-flex gap-2">
+                      //       <Link to={`/job/${item.id}`}>
+                      //         {" "}
+                      //         <Button size="sm">Job Details</Button>
+                      //       </Link>
+                      //       <Link to={`/job/apply/${item.id}`}>
+                      //         {item.creator !== userInfo?.id && (
+                      //           <Button
+                      //             onClick={onJobHandler}
+                      //             variant="danger"
+                      //             size="sm"
+                      //           >
+                      //             Apply Now
+                      //           </Button>
+                      //         )}
+                      //       </Link>
+                      //     </div>
+                      //   </Card.Body>
+                      // </Card>
                     ))}
                   </>
                 )}
@@ -270,6 +257,9 @@ const JobPage = () => {
           </Container>
         </Col>
       </Row>
+      <div className="flex justify-center pt-4 pb-8 absolute bottom-4 w-full">
+        <Paginations numberOfPage={page} />
+      </div>
     </div>
   );
 };

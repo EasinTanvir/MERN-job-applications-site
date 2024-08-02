@@ -1,20 +1,18 @@
 import axios from "axios";
 import history from "../../history";
-export const Fetch_Jobs =
-  (search = "", location = "", categorry = "", type = "") =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: "ON_WAY" });
-      const { data } = await axios.get(
-        process.env.REACT_APP_PATH +
-          `/api/job?search=${search}&location=${location}&category=${categorry}&type=${type}`
-      );
-      dispatch({ type: "FETCH_JOBS", payload: data });
-      dispatch({ type: "SUCCESS" });
-    } catch (err) {
-      dispatch({ type: "IS_ERROR", payload: err.response.data.message });
-    }
-  };
+
+export const Fetch_Jobs = (search) => async (dispatch) => {
+  try {
+    dispatch({ type: "ON_WAY" });
+    const { data } = await axios.get(
+      process.env.REACT_APP_PATH + `/api/job?${search}`
+    );
+    dispatch({ type: "FETCH_JOBS", payload: data.jobs, page: data.page });
+    dispatch({ type: "SUCCESS" });
+  } catch (err) {
+    dispatch({ type: "IS_ERROR", payload: err.response.data.message });
+  }
+};
 
 export const Fetch_Jobs_Id = (id) => async (dispatch) => {
   try {

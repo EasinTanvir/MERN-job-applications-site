@@ -5,9 +5,11 @@ import { useDispatch } from "react-redux";
 import Spinners from "../../Components/Spinners";
 import { Create_NewPosition } from "../../store/actions";
 import "./post.css";
+import { useToast } from "@chakra-ui/react";
 
 const PostJob = () => {
   const dispatch = useDispatch();
+  const toast = useToast();
   const [file, setFile] = useState(null);
   const [imageLoader, setImageLoader] = useState(false);
   const [input, setInput] = useState({
@@ -83,10 +85,17 @@ const PostJob = () => {
       desc,
     };
     dispatch(Create_NewPosition(recData));
+    toast({
+      title: "Success",
+      description: "New Job Created",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
   };
 
   return (
-    <div className="posts">
+    <div className="posts overflow-hidden">
       <Form onSubmit={onSubmitHandler}>
         <Form.Text>
           {" "}
@@ -137,7 +146,6 @@ const PostJob = () => {
                 placeholder="Enter Location"
                 type="text"
               >
-
                 <option value="">--Select--</option>
                 <option value="International">International</option>
                 <option value="Remote">Remote</option>

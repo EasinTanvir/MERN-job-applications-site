@@ -1,48 +1,84 @@
 import React from "react";
-import { Row, Col, Container } from "react-bootstrap";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
+import { Link } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+  FaInstagram,
+} from "react-icons/fa";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
   return (
-    <div className="footers">
-      <Container fluid>
-        <Row>
-          <Col className="text-center" lg={4}>
-            <h2>Address</h2>
+    <footer className="bg-custom-gradient py-6 lg:py-2  min-h-28 z-50  relative">
+      <Container>
+        {" "}
+        <div className="xl:px-10 sm:px-6 px-0  min-h-28  flex lg:flex-row flex-col  lg:gap-0 gap-5  justify-between items-center ">
+          <ul className="flex flex-1  md:gap-6 gap-4   text-white flex-row items-center ">
+            <li>
+              <Link to="/about">
+                <span className="hover:underline sm:text-sm text-xs">
+                  About Us
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/">
+                <span className="hover:underline sm:text-sm text-xs">
+                  Services
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact">
+                <span className="hover:underline sm:text-sm text-xs">
+                  Contact
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/">
+                <span className="hover:underline sm:text-sm text-xs">
+                  Privacy Policy
+                </span>
+              </Link>
+            </li>
+          </ul>
 
-            <span className="d-block small">Uttara, Dhaka-1230</span>
-
-            <span className="d-block small">Bangladesh</span>
-          </Col>
-          <Col className="text-center" lg={4}>
-            <h2>About Us</h2>
-            <p className="small">
-              {" "}
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui rem
-              labore aliquid nihil. Tempore quas labore odit modi, adipisci
-              excepturi.
-            </p>
-          </Col>
-          <Col className="text-center" lg={4}>
-            <h2>Contact Us</h2>
-            <span className="d-block"> Mobile: ++4274444444</span>
-            <span className="d-block"> Email: contact@gmail.com</span>
-            <div>
-              <FacebookIcon />
-              <LinkedInIcon />
-              <TwitterIcon />
-              <InstagramIcon />
-            </div>
-          </Col>
-          <p className="text-center mt-2 small text-light">
-            Copyright © 2022 SuperShop | All Rights Reserved
+          <p className="w-fit  flex items-center text-white sm:text-sm text-xs">
+            <span>&copy;{currentYear} SecureNote | All rights reserved.</span>
           </p>
-        </Row>
+
+          <div className="flex-1  flex flex-row gap-6 lg:justify-end justify-start items-center">
+            <Link
+              className="text-white border h-10 w-10 flex justify-center items-center border-white rounded-full p-2 hover:bg-blue-600 transition-colors duration-300"
+              to="https://facebook.com"
+            >
+              <FaFacebookF width={20} height={20} />
+            </Link>{" "}
+            <Link
+              className="text-white border h-10 w-10 flex justify-center items-center border-white rounded-full p-2 hover:bg-blue-600 transition-colors duration-300"
+              to="https://facebook.com"
+            >
+              <FaLinkedinIn width={20} height={20} />
+            </Link>{" "}
+            <Link
+              className="text-white border h-10 w-10 flex justify-center items-center border-white rounded-full p-2 hover:bg-blue-600 transition-colors duration-300"
+              to="https://facebook.com"
+            >
+              <FaTwitter width={20} height={20} />
+            </Link>{" "}
+            <Link
+              className="text-white border h-10 w-10 flex justify-center items-center border-white rounded-full p-2 hover:bg-blue-600 transition-colors duration-300"
+              to="https://facebook.com"
+            >
+              <FaInstagram width={20} height={20} />
+            </Link>
+          </div>
+        </div>
       </Container>
-    </div>
+    </footer>
   );
 };
 

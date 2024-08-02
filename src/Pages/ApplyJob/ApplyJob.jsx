@@ -53,7 +53,6 @@ const ApplyJob = () => {
     dispatch(Create_JobPost(jobId, applyData));
   };
 
-  
   if (jobposts) {
     toast({
       title: `Successfully apply for ${jobposts.jobItems.title}`,
@@ -65,14 +64,17 @@ const ApplyJob = () => {
   }
 
   return (
-    <div className="apply mt-2">
+    <div className="apply py-5 overflow-hidden">
       <Row>
         <Col md={6} className="m-auto">
           <Card>
             <Card.Title className="text-center m-3">
-              <h2 style={{ fontWeight: "bold", fontSize: "27px" }}>
+              <h2
+                className="font-montserrat text-uppercase"
+                style={{ fontWeight: "bold", fontSize: "27px" }}
+              >
                 {" "}
-                Apply For this post
+                Apply For this position
               </h2>
             </Card.Title>
             <Card.Body>

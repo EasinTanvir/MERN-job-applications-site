@@ -24,11 +24,6 @@ const Headers = () => {
   const users = useSelector((state) => state.auth);
   const { userInfo } = users;
 
-  setTimeout(() => {
-    dispatch(Log_Out());
-    localStorage.removeItem("userData");
-  }, 86400000);
-
   const onClickHandler = () => {
     localStorage.removeItem("userData");
 
@@ -36,34 +31,43 @@ const Headers = () => {
   };
   return (
     <Navbar
-      className="sticky-top headers"
-      bg="primary"
+      className="sticky-top headers bg-custom-gradient h-[64px]"
       variant="dark"
       expand="lg"
     >
       <Container>
         <Navbar.Brand>
-          <div className="nav-icon">
-            <WorkIcon /> <h3>SuperJob</h3>
+          <div className="flex items-center gap-2">
+            <Link
+              to="/"
+              className="text-[30px]  text-white  font-dancingScript"
+            >
+              SuperJob
+            </Link>
+            <span>
+              <WorkIcon />
+            </span>
           </div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
+          <Nav className="ms-auto space-x-2  font-serif">
             <LinkContainer to="/">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
-            {/* {!userInfo?.token && (
-              <LinkContainer to="/auth">
-                <Nav.Link>Auth</Nav.Link>
-              </LinkContainer>
-            )} */}
-            <LinkContainer to="/job">
+            <LinkContainer to="/job/search">
               <Nav.Link>FindJob</Nav.Link>
             </LinkContainer>
             <LinkContainer className="me-2" to="/post">
               <Nav.Link>PostJob</Nav.Link>
             </LinkContainer>
+            {!userInfo?.token && (
+              <LinkContainer className="me-2" to="/register">
+                <Nav.Link className="bg-rose-700 text-white rounded-md py-2">
+                  SignUp
+                </Nav.Link>
+              </LinkContainer>
+            )}
             {userInfo?.token && (
               <span>
                 <Menu>

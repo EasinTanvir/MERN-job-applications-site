@@ -3,29 +3,27 @@
   margin-bottom: 5rem;
 }
 .left {
-  margin-top: 8rem;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .left h3 {
-  font-weight: bolder;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-style: italic;
 }
 .inputs {
-  width: 550px;
-  padding: 15px 18px;
-  border-radius: 1rem;
+  margin-top: 1.5rem;
+  width: 370px;
+  padding: 8px 10px;
+  border-radius: 10px;
   display: flex;
   gap: 10px;
   align-items: center;
   justify-content: center;
-  box-shadow: 2px 3px 4px rgb(66, 59, 59);
+  box-shadow: 1px 1px 1px rgb(92, 91, 91);
 }
-.inputs:hover {
-  box-shadow: 2px 3px 4px gray;
-}
+
 .inputs input {
   border: none;
   outline: none;
@@ -82,4 +80,17 @@
   border: 2px solid wheat;
   border-radius: 50%;
   object-fit: contain;
+}
+
+@media (min-width: 566px) {
+  .inputs {
+    width: 550px;
+    padding: 8px 18px;
+  }
+}
+@media (min-width: 1024px) {
+  .inputs {
+    width: 640px;
+    padding: 8px 18px;
+  }
 }

@@ -1,7 +1,7 @@
-export const jobReducer = (state = { jobs: [] }, action) => {
+export const jobReducer = (state = { jobs: [], page: 1 }, action) => {
   switch (action.type) {
     case "FETCH_JOBS":
-      return { ...state, jobs: action.payload };
+      return { ...state, jobs: action.payload, page: action.page };
 
     default:
       return state;

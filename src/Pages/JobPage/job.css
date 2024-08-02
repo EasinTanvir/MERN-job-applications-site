@@ -1,32 +1,30 @@
 .jobs {
-  min-height: 110vh;
 }
 
 .search {
-  width: 50%;
-  margin: 3rem auto 2rem auto;
+  width: 100%;
 }
 
 .location {
-  width: 50%;
-  margin: 0rem auto 2rem auto;
+  width: 100%;
+  margin-top: 1.5rem;
 }
 
 .category {
-  width: 50%;
-  margin: 0rem auto 2rem auto;
+  width: 100%;
+  margin-top: 1.5rem;
 }
 
 .job-type {
-  width: 50%;
-  margin: 0rem auto 2rem auto;
+  width: 100%;
+  margin-top: 1.5rem;
 }
 
 .card-left img {
   width: 70px;
   height: 70px;
   border-radius: 5px;
-  border: 1px solid black;
+
   object-fit: cover;
 }
 ::-webkit-scrollbar {
@@ -39,16 +37,47 @@
   background-color: gray;
 }
 .job-left {
-  position: fixed;
+  position: relative;
   top: 3rem;
-  width: 52%;
+  width: 100%;
+
+  padding-inline: 10px;
+  padding-bottom: 3rem;
 }
 
 .job-right {
-  width: 95%;
-  margin: 2rem auto 0rem auto;
+  width: 100%;
 }
 .title {
   font-size: 21px;
-  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+@media (min-width: 992px) {
+  .job-right {
+    width: 95%;
+  }
+  .job-left {
+    position: fixed;
+    width: 50%;
+  }
+
+  .search {
+    margin: 3rem auto 2rem auto;
+    width: 60%;
+  }
+
+  .location {
+    width: 60%;
+    margin: 0rem auto 2rem auto;
+  }
+
+  .category {
+    width: 60%;
+    margin: 0rem auto 2rem auto;
+  }
+
+  .job-type {
+    width: 60%;
+    margin: 0rem auto 2rem auto;
+  }
 }
