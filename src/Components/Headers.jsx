@@ -6,6 +6,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import WorkIcon from "@mui/icons-material/Work";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Button as Buttons } from "react-bootstrap";
+
 import {
   Menu,
   MenuButton,
@@ -14,12 +15,14 @@ import {
   Image,
   Button,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Log_Out } from "../store/actions";
+import { MdWorkspacePremium } from "react-icons/md";
 
 const Headers = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const users = useSelector((state) => state.auth);
   const { userInfo } = users;
@@ -28,6 +31,8 @@ const Headers = () => {
     localStorage.removeItem("userData");
 
     dispatch(Log_Out());
+
+    navigate("/login");
   };
   return (
     <Navbar
@@ -45,7 +50,7 @@ const Headers = () => {
               SuperJob
             </Link>
             <span>
-              <WorkIcon />
+              <MdWorkspacePremium className="text-3xl" />
             </span>
           </div>
         </Navbar.Brand>
@@ -85,9 +90,7 @@ const Headers = () => {
                       <MenuItem minH="48px">Profile</MenuItem>
                     </Link>
                     <MenuItem minH="40px">
-                      <Link to="/auth">
-                        <Buttons onClick={onClickHandler}>LogOut</Buttons>
-                      </Link>
+                      <Buttons onClick={onClickHandler}>LogOut</Buttons>
                     </MenuItem>
                   </MenuList>
                 </Menu>

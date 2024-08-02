@@ -53,15 +53,17 @@ const ApplyJob = () => {
     dispatch(Create_JobPost(jobId, applyData));
   };
 
-  if (jobposts) {
-    toast({
-      title: `Successfully apply for ${jobposts.jobItems.title}`,
-      description: "Go to Page to see Profile Details",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
-  }
+  useEffect(() => {
+    if (jobposts) {
+      toast({
+        title: `Successfully apply for ${jobposts.jobItems.title}`,
+        description: "Go to Page to see Profile Details",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  }, [jobposts]);
 
   return (
     <div className="apply py-5 overflow-hidden">

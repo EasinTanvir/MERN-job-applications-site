@@ -1,12 +1,12 @@
 import "./home.css";
+import { useEffect, useRef, useState } from "react";
 import { Row, Col, Container, Button, Toast } from "react-bootstrap";
 import SearchIcon from "@mui/icons-material/Search";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Form } from "react-bootstrap";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
 import { useToast } from "@chakra-ui/react";
-
+import { IoSearchOutline } from "react-icons/io5";
 const Search = () => {
   const toast = useToast();
 
@@ -65,8 +65,16 @@ const Search = () => {
           <option value="international">International</option>
           <option value="hybrid">Hybrid</option>
         </Form.Control>
-        <Button onClick={onSearchHandler} variant="primary" type="submit">
-          FindJob
+        <Button
+          className="flex items-center gap-1"
+          onClick={onSearchHandler}
+          variant="primary"
+          type="submit"
+        >
+          Search
+          <span>
+            <IoSearchOutline className="mt-1 text-lg" />
+          </span>
         </Button>
       </div>
       <p className="small mt-3 text-slate-600 px-2">

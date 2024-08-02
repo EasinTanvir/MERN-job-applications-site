@@ -10,7 +10,7 @@ import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Fetch_Jobs_Id } from "../../store/actions";
 import { useParams } from "react-router-dom";
@@ -20,7 +20,7 @@ import Loader from "../JobPage/Loader";
 const JobDetails = () => {
   const dispatch = useDispatch();
   const jobId = useParams().id;
-
+  const navigate = useNavigate();
   const alljob = useSelector((state) => state.singleJob);
   const error = useSelector((state) => state.errors);
   const loginuser = useSelector((state) => state.auth);
@@ -29,10 +29,13 @@ const JobDetails = () => {
   const { jobs } = alljob;
 
   useEffect(() => {
-    dispatch(Fetch_Jobs_Id(jobId));
+    if (jobId) {
+      dispatch(Fetch_Jobs_Id(jobId));
+    }
   }, [dispatch, jobId]);
+
   if (!jobs) {
-    return <p>Loading.......</p>;
+    return navigate("/job/search");
   }
 
   const onJobHandler = () => {
@@ -210,25 +213,27 @@ const JobDetails = () => {
               </Col>
               <Col lg={6}>
                 <div className="right-details ">
-                  {jobs.creator !== userInfo?.id && (
-                    <div className="title mt-4">
-                      <h4 className="font-montserrat text-slate-800 text-2xl font-bold py-2">
-                        Application End's :{" "}
-                        <span className="text-danger">
-                          {moment(jobs.expire).format("YYYY-MM-DD")}
-                        </span>
-                      </h4>
-                      <Link to={`/job/apply/${jobId}`}>
-                        <Button
-                          onClick={onJobHandler}
-                          className="mt-2"
-                          variant="primary"
-                        >
-                          Apply Now
-                        </Button>
-                      </Link>
-                    </div>
-                  )}
+                  <>
+                    {jobs.creator !== userInfo?.id && (
+                      <div className="title mt-4">
+                        <h4 className="font-montserrat text-slate-800 text-2xl font-bold py-2">
+                          Application End's :{" "}
+                          <span className="text-danger">
+                            {moment(jobs.expire).format("YYYY-MM-DD")}
+                          </span>
+                        </h4>
+                        <Link to={`/job/apply/${jobId}`}>
+                          <Button
+                            onClick={onJobHandler}
+                            className="mt-2"
+                            variant="primary"
+                          >
+                            Apply Now
+                          </Button>
+                        </Link>
+                      </div>
+                    )}
+                  </>
                   <Card className="mt-3 ">
                     <Card.Body>
                       <Card.Text>

@@ -57,14 +57,14 @@ const HomePage = () => {
         </motion.div>
         <div className="flex items-center justify-center gap-3 pb-4 ">
           <>
-            <Link to="/post">
+            <Link to="/profile">
               <Buttons className="sm:w-52 w-44 bg-rose-700 font-semibold hover:scale-105 transition-all duration-200 cursor-pointer text-white px-6 py-[12px] rounded-sm">
-                Post Job
+                Profile
               </Buttons>
             </Link>
             <Link to="/job/search">
               <Buttons className="sm:w-52 w-44 bg-btnColor font-semibold hover:scale-105 transition-all duration-200 cursor-pointer text-white px-6 py-[12px] rounded-sm">
-                Find Job
+                Search Job
               </Buttons>
             </Link>
           </>

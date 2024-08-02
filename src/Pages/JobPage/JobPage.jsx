@@ -191,7 +191,7 @@ const JobPage = () => {
               <Form.Label className="flex items-center gap-1">
                 <BiSolidDollarCircle className="text-2xl" />{" "}
                 <span className="text-slate-700 font-semibold text-lg">
-                  Filter With Price
+                  Filter With Price (USD)
                 </span>
               </Form.Label>
 
